@@ -10,7 +10,7 @@
   :commands (latex-mode LaTeX-mode plain-tex-mode)
   :init
   (progn
-    (add-hook 'LaTeX-mode-hook #'LaTeX-preview-setup)
+;    (add-hook 'LaTeX-mode-hook #'LaTeX-preview-setup)
     (add-hook 'LaTeX-mode-hook #'flyspell-mode)
     (add-hook 'LaTeX-mode-hook #'turn-on-reftex)
     (add-hook 'LaTeX-mode-hook #'latex-company-setup)
@@ -21,12 +21,12 @@
 	  TeX-PDF-mode t)
     (setq-default TeX-master nil)))
 
-(use-package preview
-  :commands LaTeX-preview-setup
-  :init
-  (progn
-    (setq-default preview-scale 1.4
-		  preview-scale-function '(lambda () (* (/ 10.0 (preview-document-pt)) preview-scale)))))
+;(use-package preview
+;  :commands LaTeX-preview-setup
+;  :init
+;  (progn
+;    (setq-default preview-scale 1.4
+;		  preview-scale-function '(lambda () (* (/ 10.0 (preview-document-pt)) preview-scale)))))
 
 (use-package reftex
   :commands turn-on-reftex
@@ -53,6 +53,9 @@
 
 ;; Compilation command
 (add-hook 'LaTeX-mode-hook (lambda () (setq compile-command "latexmk -pdf")))
+
+;; DocView settings
+(setq revert-without-query '(".*\.pdf"))
 
 ;; Prevent ispell from verifying some LaTeX commands
 ;; http://stat.genopole.cnrs.fr/dw/~jchiquet/fr/latex/emacslatex

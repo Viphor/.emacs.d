@@ -77,7 +77,7 @@
   (enlarge-window-horizontally n))
 
 ;; == DocView mode hook ==
-(add-hook 'doc-view-mode-hook 'auto-revert-mode)
+;(add-hook 'doc-view-mode-hook 'auto-revert-mode)
 
 ;; load cmake mode
 (autoload 'cmake-mode "~/CMake/Auxiliary/cmake-mode.el" t)
@@ -148,11 +148,11 @@ Non-interactive arguments are Begin End Regexp"
   :init (add-hook 'after-init-hook 'global-company-mode)
   :config
   (use-package company-irony :ensure t :defer t)
-  (setq company-idle-delay              nil
+  (setq company-idle-delay              0.1
 	company-minimum-prefix-length   2
 	company-show-numbers            t
 	company-tooltip-limit           20
-	company-dabbrev-downcase        nil
+	company-dabbrev-downcase        0
 	company-backends                '((company-irony company-gtags company-dabbrev))
 	)
   :bind ("C-," . company-complete-common)
@@ -167,7 +167,7 @@ Non-interactive arguments are Begin End Regexp"
 
 
 ;; == LaTeX setup ==
-;(load "~/.config/emacs/init-24-tex.el")
+(load "~/.emacs.d/init-24-tex.el")
 (put 'dired-find-alternate-file 'disabled nil)
 (add-hook 'LaTeX-mode-hook
 	  (lambda ()
@@ -181,7 +181,7 @@ Non-interactive arguments are Begin End Regexp"
 
 
 ;; == Scheme settings ==
-;(load "~/.emacs.d/scheme-setup.el")
+(load "~/.emacs.d/scheme-setup.el")
 
 ;; == SmallTalk mode ==
 (setq auto-mode-alist
