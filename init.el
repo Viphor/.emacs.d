@@ -1,9 +1,14 @@
 (require 'package)
 (setq package-enable-at-startup nil)
+;(add-to-list 'package-list 'company-math ')
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
 (package-initialize)
+
+;; MOVE TO ORG-MODE SETTINGS: https://emacs.stackexchange.com/questions/3143/can-i-use-org-mode-to-structure-my-emacs-or-other-el-configuration-file
+
+;; LOOK INTO: https://github.com/szermatt/emacs-bash-completion
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
@@ -68,19 +73,19 @@
 ;; Window sizeing functions
 (defun shrink-window-horizontally-by (n)
   "Shrinks the window by n-amount"
-  (interactive "Number of ticks to shrink window by (default 1): ")
+  (interactive "Number of ticks to shrink window by: ")
   (shrink-window-horizontally n))
 
 (defun enlarge-window-horizontally-by (n)
   "Enlarges the window by n-amount"
-  (interactive "Number of ticks to enlarge window by (default 1): ")
+  (interactive "Number of ticks to enlarge window by: ")
   (enlarge-window-horizontally n))
 
 ;; == DocView mode hook ==
 ;(add-hook 'doc-view-mode-hook 'auto-revert-mode)
 
 ;; load cmake mode
-(autoload 'cmake-mode "~/CMake/Auxiliary/cmake-mode.el" t)
+;(autoload 'cmake-mode "~/CMake/Auxiliary/cmake-mode.el" t)
 
 ; Add cmake listfile names to the mode list.
 (setq auto-mode-alist
@@ -148,7 +153,7 @@ Non-interactive arguments are Begin End Regexp"
   :init (add-hook 'after-init-hook 'global-company-mode)
   :config
   (use-package company-irony :ensure t :defer t)
-  (setq company-idle-delay              0.1
+  (setq company-idle-delay              0.3
 	company-minimum-prefix-length   2
 	company-show-numbers            t
 	company-tooltip-limit           20
@@ -175,7 +180,8 @@ Non-interactive arguments are Begin End Regexp"
 	    (company-auctex-init)
 	    (set (make-local-variable 'company-backends)
 		 '(company-auctex company-latex-commands company-dabbrev))
-	    (local-set-key (kbd "C-:") 'company-complete-common)))
+	    (local-set-key (kbd "C-:") 'company-complete-common)
+	    (latex-math-mode)))
 	    ;(local-set-key (kbd "C-,") 'company-latex-commands)
 	    ;(infer-indentation-style)))
 
