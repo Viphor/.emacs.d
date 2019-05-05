@@ -54,6 +54,7 @@
 (define-key global-map [C-end] 'end-of-buffer)
 (define-key global-map [home] 'beginning-of-line)
 (define-key global-map [end] 'end-of-line)
+(global-set-key "\C-h" 'delete-backward-char)
 
 (tool-bar-mode -1)
 
@@ -95,10 +96,13 @@
 	   auto-mode-alist))
 
 ;; == Indentation mode ==
-;(setq-default indent-tabs-mode nil)
+(setq-default indent-tabs-mode nil)
 (setq tab-width 4)
+(setq c-default-style "bsd")
 (defvaralias 'c-basic-offset 'tab-width)
 (defvaralias 'cperl-indent-level 'tab-width)
+(defvaralias 'java-basic-offset 'tab-width)
+
 
 ;; == Infer indentation mode ==
 (defun how-many-region (begin end regexp &optional interactive)
@@ -195,3 +199,48 @@ Non-interactive arguments are Begin End Regexp"
                     auto-mode-alist))
      
 ;(autoload 'smalltalk-mode "/usr/local/share/emacs/site-lisp/gnu-smalltalk/smalltalk-mode.elc" "" t)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (gradle-mode pyenv-mode ivy elpy powerline-evil c1 powerline evil ## yasnippet company-auctex docker-compose-mode dockerfile-mode company-math auctex company-irony company irony zenburn-theme use-package diminish)))
+ '(safe-local-variable-values
+   (quote
+    ((python-shell-virtualenv-root . /home/akl/\.virtualenvs/klostergaard\.net)
+     (pyenv-activate . /home/akl/\.virtualenvs/klostergaard\.net)
+     (pyenv-activate . /home/akl/\.virtualenvs/klostergaard\.net/bin/activate)))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+;; == EVIL MODE ==
+(use-package evil
+  :ensure t
+  :config (evil-mode 1))
+
+;; == Powerline ==
+(use-package powerline-evil
+  :ensure t
+  :config (powerline-default-theme))
+
+;; == elpy mode ==
+(use-package ivy
+  :ensure t)
+(use-package pyenv-mode
+  :ensure t)
+  ;:init (setq auto-mode-alist (append '(("\\.py\\'" . pyenv-mode)) auto-mode-alist)))
+(use-package elpy
+  :ensure t
+  :config (elpy-enable))
+
+;; == java mode ==
+(add-hook 'java-mode-hook (lambda ()
+                            (setq c-default-style "bsd"
+                                  c-basic-offset 4
+                                  java-basic-offset 4)))
